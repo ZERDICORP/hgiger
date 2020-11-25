@@ -6,6 +6,7 @@ from client.tools.tagFinderTools import TagFinderTools
 from client.components.contextMenuWidget import ContextMenuWidget
 from client.components.hintWidget import HintWidget
 from client.modals.modalWidget import ModalWidget
+from modules.strDiff import strDiff
 
 class TagFinderWidget(ModalWidget, TagFinderTools):
 	def __init__(self, parent, pageWidget, ui, tabWidget, sections, hints):
@@ -75,7 +76,7 @@ class TagFinderWidget(ModalWidget, TagFinderTools):
 	def onKeyPressed(self, text):
 		top = [0, None]
 		for tag in self.tags:
-			diff = self.procentDifference(tag, text)
+			diff = strDiff(tag, text)
 			if diff > top[0]:
 				top = [diff, tag]
 		self.tagList.setCurrentText(top[1])

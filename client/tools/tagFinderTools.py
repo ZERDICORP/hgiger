@@ -24,20 +24,11 @@ class TagFinderTools():
 		else:
 			return self.sortByTags(tags, None)
 
-	def sortByTags(self, tags, tabName):
-		hints = [hint for hint in self.hints if hint["section"] == tabName] if tabName else [hint for hint in self.hints]
+	def sortByTags(self, tags, section):
+		hints = [hint for hint in self.hints if hint["section"] == section] if section else [hint for hint in self.hints]
 		for i in range(len(hints)):
 			tagCount = sum([1 for tag in tags if tag in hints[i]["tags"]])
 			for j in range(len(hints)):
 				if tagCount > sum([1 for tag in tags if tag in hints[j]["tags"]]):
 					hints[i], hints[j] = hints[j], hints[i]
 		return [hint for hint in hints if any([tag in hint["tags"] for tag in tags])]
-
-	def procentDifference(self, str1, str2):
-		res = ""
-		for i in range(len(str2)):
-			if res + str2[i] == str1[:i + 1]:
-				res += str2[i]
-			else:
-				break
-		return len(res) * 100 / len(str1)

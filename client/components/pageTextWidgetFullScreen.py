@@ -25,7 +25,7 @@ class PageTextWidgetFullScreen(QPlainTextEdit):
 
 	def showFullScreen(self, text):
 		self.setPlainText(text)
-		super(TextEditWidgetFS, self).showFullScreen()
+		super(PageTextWidgetFullScreen, self).showFullScreen()
 
 	def contextMenuEvent(self, event):
 		contextMenu = ContextMenuWidget(self, self.ui.RobotoLight, [
