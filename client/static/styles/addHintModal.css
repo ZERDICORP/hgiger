@@ -1,0 +1,9 @@
+QLineEdit#tagsEdit {
+	border: none;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+QPlainTextEdit {
+	padding-top: 5px;
+}

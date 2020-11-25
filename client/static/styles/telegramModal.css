@@ -1,0 +1,8 @@
+QPushButton#cloning {
+	border-radius: 20px;
+	border: 1px solid #000;
+}
+
+QPushButton#cloning:hover {
+	background: #000;
+}

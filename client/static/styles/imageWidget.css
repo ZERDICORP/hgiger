@@ -1,0 +1,7 @@
+QLabel {
+	border: 1px solid transparent;
+}
+
+QLabel:hover {
+	border: 1px dashed #000;
+}

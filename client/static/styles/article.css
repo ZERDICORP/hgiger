@@ -1,0 +1,15 @@
+QListWidget::item {
+	background: #fff;
+}
+
+QListWidget::item:selected {
+	background: #fff;
+}
+
+QTextEdit {
+	border: 1px solid #242424;
+}
+
+QGraphicsView {
+	border: none;
+}
