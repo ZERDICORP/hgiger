@@ -1,8 +1,8 @@
-from sys import argv as args
-from os import listdir, getcwd
+from sys import argv as args, executable
+import sys
+from os import listdir, getcwd, path
 from json import load
 from threading import Thread
-from core.manager import Manager
 from modules.strDiff import strDiff
 
 class Logger:
@@ -150,8 +150,15 @@ def checkHints(hints):
 		Logger.log(type=Logger.NO_RESULTS)
 		maybeYouMean(args)
 
+def getExecutablePath():
+	if getattr(sys, "frozen", False):
+		application_path = path.dirname(sys.executable)
+	elif __file__:
+		application_path = path.dirname(__file__)
+	return application_path
+
 if __name__ == "__main__":
-	with open(Manager().basePath) as f:
+	with open(path.join(getExecutablePath(), "db\\db.json")) as f:
 		cellSections, cells = load(f)
 	try:
 		del args[0]
