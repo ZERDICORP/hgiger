@@ -64,8 +64,9 @@ class CellsPage(PageWidget):
 				f'Delete section "{self.tabWidget.currentName()}"?', lambda: self.ui.manager.reception(self.ui.manager.requestType.DELETE_CELL_SECTION,
 					sectionId=self.tabWidget.currentIndex())),
 			bool(len(self.sections) == 1)],
-			[QAction(QIcon(assetsPath.swap), "Swap sections", self), lambda: self.ui.moveSectionModal.toggle(
+			[QAction(QIcon(assetsPath.swap), "Swap sections", self), lambda: self.ui.swapSectionsModal.toggle(
 				sections=self.sections,
+				currentIndex=self.tabWidget.currentIndex(),
 				action=lambda sections: self.ui.manager.reception(self.ui.manager.requestType.SWAP_CELL_SECTIONS,
 					sections=sections)),
 			bool(len(self.sections) == 1)],

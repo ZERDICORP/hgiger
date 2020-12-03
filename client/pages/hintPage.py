@@ -109,8 +109,9 @@ class HintPage(PageWidget):
 				action=lambda: self.ui.manager.reception(self.ui.manager.requestType.DELETE_PAGE,
 					pageId=self.tabWidget.currentIndex())),
 			bool(len(self.hint["pages"]) == 1)],
-			[QAction(QIcon(assetsPath.swap), "Swap pages", self), lambda: self.ui.moveSectionModal.toggle(
+			[QAction(QIcon(assetsPath.swap), "Swap pages", self), lambda: self.ui.swapSectionsModal.toggle(
 				sections=self.hint["pages"],
+				currentIndex=self.tabWidget.currentIndex(),
 				icon=assetsPath.page,
 				action=lambda pages: self.ui.manager.reception(self.ui.manager.requestType.SWAP_PAGES,
 					pages=pages)), 

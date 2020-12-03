@@ -13,6 +13,7 @@ class Logger:
 	INDEX_SHOULD_BE_INTEGER = "INDEX_SHOULD_BE_INTEGER"
 	FILE_ALREADY_EXISTS = "FILE_ALREADY_EXISTS"
 	FILE_CREATED = "FILE_CREATED"
+	FILE_OVERWRITED = "FILE_OVERWRITED"
 	MAYBE_YOU_MEAN_TAGS = "MAYBE_YOU_MEAN_TAGS"
 	LINE = "LINE"
 	isLoading = False
@@ -33,6 +34,8 @@ class Logger:
 			res = f"[info]: file \"{req['fileName']}\" already exists :["
 		elif type == Logger.FILE_CREATED:
 			res = f"[info]: file \"{req['fileName']}\" successfully created :]"
+		elif type == Logger.FILE_OVERWRITED:
+			res = f"[info]: file \"{req['fileName']}\" successfully overwrited :]"
 		elif type == Logger.MAYBE_YOU_MEAN_TAGS:
 			res = "[mym]:\n\t" + ", ".join([f"\"{tag[1]}\" ({tag[0]}%)" for tag in req["tags"]])
 		if not noPrint:
@@ -107,21 +110,21 @@ def showHints(hints):
 		print(string)
 	Logger.draw(type=Logger.LINE, length=maxLength)
 
-def createFilesByPages(pages, finished):
-	logArr = []
+def saveFile(name, content):
+	with open(f"{getcwd()}/{name}", "w", encoding="utf-8") as f:
+		f.write(content)
+
+def createFilesByPages(pages):
 	for page in pages:
 		if page["name"] not in listdir():
-			with open(f"{getcwd()}/{page['name']}", "w", encoding="utf-8") as f:
-				f.write(page["content"])
-			logArr.append(Logger.log(type=Logger.FILE_CREATED, req={"fileName": page["name"]}, noPrint=True))
+			saveFile(page["name"], page["content"])
+			Logger.log(type=Logger.FILE_CREATED, req={"fileName": page["name"]})
 		else:
-			logArr.append(Logger.log(type=Logger.FILE_ALREADY_EXISTS, req={"fileName": page["name"]}, noPrint=True))
-	finished(logArr)
-
-def creatingFilesFinished(logArr):
-	Logger.stopLoading()
-	for log in logArr:
-		print(log)
+			Logger.log(type=Logger.FILE_ALREADY_EXISTS, req={"fileName": page["name"]})
+			overwrite = input("Overwrite it? (y): ")
+			if overwrite in ["y", "Y", "yes"]:
+				saveFile(page["name"], page["content"])
+				Logger.log(type=Logger.FILE_OVERWRITED, req={"fileName": page["name"]})
 
 def askIndex(hints):
 	index = input("index: ")
@@ -129,9 +132,7 @@ def askIndex(hints):
 		if index.isdigit():
 			index = int(index)
 			if index >= 0 and index < len(hints):
-				Thread(target=lambda: createFilesByPages(
-					pages=hints[index]["pages"], finished=creatingFilesFinished)).start()
-				Logger.startLoading()
+				createFilesByPages(pages=hints[index]["pages"])
 			else:
 				Logger.log(type=Logger.BAD_INDEX, req={"len": len(hints) - 1})
 				askIndex(hints)

@@ -17,7 +17,7 @@ from client.modals.moveHintModalWidget import MoveHintModalWidget
 from client.modals.inputModalWidget import InputModalWidget
 from client.modals.tagsModalWidget import TagsModalWidget
 from client.modals.textModalWidget import TextModalWidget
-from client.modals.moveSectionModalWidget import MoveSectionModalWidget
+from client.modals.swapSectionsModalWidget import SwapSectionsModalWidget
 from client.modals.loaderWidget import LoaderWidget
 from client.modals.telegramModalWidget import TelegramModalWidget
 
@@ -58,5 +58,5 @@ class UI(MainWindow, UiConst, UiTools):
 		self.inputModal = InputModalWidget(parent=self.createSmokeWidget(), ui=self)
 		self.tagsModal = TagsModalWidget(parent=self.createSmokeWidget(), ui=self)
 		self.textModal = TextModalWidget(parent=self.createSmokeWidget(), ui=self)
-		self.moveSectionModal = MoveSectionModalWidget(parent=self.createSmokeWidget(), ui=self)
+		self.swapSectionsModal = SwapSectionsModalWidget(parent=self.createSmokeWidget(), ui=self)
 		self.infoModal = InfoModalWidget(parent=self.createSmokeWidget(), ui=self)

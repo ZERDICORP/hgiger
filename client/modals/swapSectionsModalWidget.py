@@ -4,9 +4,9 @@ from PyQt5.QtCore import Qt
 from client.tools.staticManager import assetsPath, styles
 from client.modals.modalWidget import ModalWidget
 
-class MoveSectionModalWidget(ModalWidget):
+class SwapSectionsModalWidget(ModalWidget):
 	def __init__(self, parent, ui):
-		super(MoveSectionModalWidget, self).__init__(parent, ui)
+		super(SwapSectionsModalWidget, self).__init__(parent, ui)
 		
 		self.setStyleSheet("".join([
 			styles.menuButton,
@@ -46,13 +46,14 @@ class MoveSectionModalWidget(ModalWidget):
 	def getSections(self):
 		return [self.tabWidget.widget(index).objectName() for index in range(self.tabWidget.count())]
 		
-	def updateTabWidget(self):
+	def updateTabWidget(self, currentIndex):
 		self.tabWidget.clear()
 		for i, section in enumerate(self.sections):
 			self.tabWidget.addTab(QWidget(objectName=section["name"]), QIcon(self.icon if self.icon else section["icon"]), section["name"])
+		self.tabWidget.setCurrentIndex(currentIndex)
 
-	def willBeOpen(self, sections=None, icon=None, action=None):
+	def willBeOpen(self, sections=[], currentIndex=0, action=None, icon=None):
 		self.sections = sections
-		self.icon = icon
 		self.action = action
-		self.updateTabWidget()
+		self.icon = icon
+		self.updateTabWidget(currentIndex)

@@ -13,6 +13,7 @@ class MoveHintModalWidget(ModalWidget):
 		]))
 
 		self.requestData = {}
+		self.hasBeenOpen = True
 
 		self.title = self.ui.createLabel(fontSize=16, alignment=Qt.AlignCenter)
 		self.cellSectionsCbox = self.ui.createComboBox(items=[section["name"] for section in self.ui.manager.cellSections], 
@@ -34,7 +35,8 @@ class MoveHintModalWidget(ModalWidget):
 
 	def haveAnyReasonToOpen(self, objectSection):
 		self.objectSection = objectSection
-		return not bool(self.getSections())
+		self.getSections()
+		return not bool(self.sections)
 
 	def readyToAction(self):
 		newPath = self.getCurrentPath()
@@ -79,10 +81,15 @@ class MoveHintModalWidget(ModalWidget):
 	def updateCellsCbox(self, index=0, cellSectionIndex=None):
 		cellSectionIndex = cellSectionIndex if cellSectionIndex != None else self.cellSectionsCbox.currentIndex()
 		self.getCells(cellSectionIndex)
+		if self.hasBeenOpen:
+			cellIndex = [i for i, cell in enumerate(self.cells) if cell["id"] == self.ui.manager.currentCell["id"]]
+			if cellIndex:
+				index = cellIndex[0]
+			self.hasBeenOpen = False
 		self.cellsCbox.clear()
 		self.cellsCbox.addItems([cell["name"] for cell in self.cells])
 		self.cellsCbox.setCurrentIndex(index)
-		self.updateHintSectionsCbox(cellIndex=elf.ui.manager.cells.index(self.cells[index]))
+		self.updateHintSectionsCbox(cellIndex=self.ui.manager.cells.index(self.cells[index]))
 
 	def updateHintSectionsCbox(self, index=0, cellIndex=None):
 		if cellIndex != None:

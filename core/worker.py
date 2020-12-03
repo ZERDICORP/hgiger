@@ -109,11 +109,11 @@ class Worker(WorkerTools):
 	def moveHint(self, hintId, newPath):
 		cellSection, cellId, hintSection = newPath
 		hintIndex = self.findElementById(elements=self.hints, id=hintId, onlyIndex=True)
+		cellIndex = self.findElementById(elements=self.cells, id=cellId, onlyIndex=True)
 		self.hints[hintIndex]["section"] = hintSection
-		if cellId != self.currentCell["id"]:
-			self.cells[self.findElementById(elements=self.cells, id=cellId, onlyIndex=True)]["body"][1].insert(0, self.hints[hintIndex])
-			self.cells = self.updateHints(cells=self.cells, cellId=self.currentCell["id"],
-				hints=[hint for hint in self.hints if hint["id"] != hintId])
+		self.cells = self.updateHints(cells=self.cells, cellId=self.currentCell["id"],
+			hints=[hint for hint in self.hints if hint["id"] != hintId])
+		self.cells[cellIndex]["body"][1].insert(0, self.hints[hintIndex])
 		return self.cells
 	# (↓) [-HINT-]
 	def editTags(self, newTags):
