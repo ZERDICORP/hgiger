@@ -30,8 +30,6 @@ class Validator(object):
 		error = ""
 		if len(value) < 3:
 			error = "value length should be > 2"
-		elif len(value) > 20:
-			error = "value length should be < 20"
 		elif value == source:
 			error = "value has not changed"
 		elif value in sections:

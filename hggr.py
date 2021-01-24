@@ -1,6 +1,6 @@
 from sys import argv as args, executable
 import sys
-from os import listdir, getcwd, path
+from os import listdir, getcwd, path, mkdir
 from json import load
 from threading import Thread
 from modules.strDiff import strDiff
@@ -116,15 +116,26 @@ def saveFile(name, content):
 
 def createFilesByPages(pages):
 	for page in pages:
-		if page["name"] not in listdir():
-			saveFile(page["name"], page["content"])
-			Logger.log(type=Logger.FILE_CREATED, req={"fileName": page["name"]})
-		else:
-			Logger.log(type=Logger.FILE_ALREADY_EXISTS, req={"fileName": page["name"]})
-			overwrite = input("Overwrite it? (y): ")
-			if overwrite in ["y", "Y", "yes"]:
-				saveFile(page["name"], page["content"])
-				Logger.log(type=Logger.FILE_OVERWRITED, req={"fileName": page["name"]})
+		pathArr = page["name"].split("/")
+		path = "./"
+
+		for i, item in enumerate(pathArr):
+			if i < len(pathArr) - 1:
+				path += item + "/"
+				try:
+					mkdir(path)
+				except:
+					continue
+			else:
+				if item not in listdir(path):
+					saveFile(page["name"], page["content"])
+					Logger.log(type=Logger.FILE_CREATED, req={"fileName": page["name"]})
+				else:
+					Logger.log(type=Logger.FILE_ALREADY_EXISTS, req={"fileName": page["name"]})
+					overwrite = input("Overwrite it? (y): ")
+					if overwrite in ["y", "Y", "yes"]:
+						saveFile(page["name"], page["content"])
+						Logger.log(type=Logger.FILE_OVERWRITED, req={"fileName": page["name"]})
 
 def askIndex(hints):
 	index = input("index: ")
@@ -140,7 +151,7 @@ def askIndex(hints):
 			Logger.log(type=Logger.INDEX_SHOULD_BE_INTEGER)
 			askIndex(hints)
 	else:
-		exit()
+		sys.exit()
 
 def checkHints(hints):
 	Logger.stopLoading()
@@ -169,4 +180,4 @@ if __name__ == "__main__":
 		else:
 			Logger.log(type=Logger.REMINDER)
 	except KeyboardInterrupt:
-		exit()
+		sys.exit()

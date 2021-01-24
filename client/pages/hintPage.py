@@ -95,7 +95,7 @@ class HintPage(PageWidget):
 				validateData={"type": self.ui.validator.validateType.SECTION_NAME},
 				action=lambda pageName: self.ui.manager.reception(self.ui.manager.requestType.ADD_PAGE,
 					currentPageId=self.tabWidget.currentIndex(),
-					pageName=pageName)), 
+					pageName=pageName)),
 			False],
 			[QAction(QIcon(assetsPath.reset), "Rename", self), lambda: self.ui.inputModal.toggle(
 				validateData={"type": self.ui.validator.validateType.SECTION_NAME},
