@@ -1,9 +1,12 @@
-from sys import argv as args, executable
+from sys import argv, executable
 import sys
 from os import listdir, getcwd, path, mkdir
 from json import load
 from threading import Thread
 from modules.strDiff import strDiff
+
+choiceIndex = None
+choiceIndexCommand = "--i="
 
 class Logger:
 	HINT = "HINT"
@@ -138,7 +141,8 @@ def createFilesByPages(pages):
 						Logger.log(type=Logger.FILE_OVERWRITED, req={"fileName": page["name"]})
 
 def askIndex(hints):
-	index = input("index: ")
+	print("index: ", end="")
+	index = input("") if not choiceIndex else print(choiceIndex) or choiceIndex
 	if index:
 		if index.isdigit():
 			index = int(index)
@@ -160,7 +164,7 @@ def checkHints(hints):
 		askIndex(hints)
 	else:
 		Logger.log(type=Logger.NO_RESULTS)
-		maybeYouMean(args)
+		maybeYouMean(argv)
 
 def getExecutablePath():
 	if getattr(sys, "frozen", False):
@@ -170,12 +174,16 @@ def getExecutablePath():
 	return application_path
 
 if __name__ == "__main__":
-	with open(path.join(getExecutablePath(), "db\\db.json")) as f:
+	with open(path.join(getExecutablePath(), "db/db.json")) as f:
 		cellSections, cells = load(f)
 	try:
-		del args[0]
-		if args:
-			Thread(target=lambda: sortByTags(tags=args, nextStep=checkHints)).start()
+		del argv[0]
+		for index, item in enumerate(argv):
+			if choiceIndexCommand in item:
+				choiceIndex = item.replace(choiceIndexCommand, "")
+				del argv[index]
+		if argv:
+			Thread(target=lambda: sortByTags(tags=argv, nextStep=checkHints)).start()
 			Logger.startLoading()
 		else:
 			Logger.log(type=Logger.REMINDER)
