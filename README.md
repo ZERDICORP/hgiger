@@ -1,7 +1,7 @@
 # hgiger
 A program for creating notes on various topics.
 
-After cloning the project, open CMD in the root directory and just type this command: _python main.py_
+After cloning the project, open CMD in the root directory and just type this command: _python main.py_.
 Press Enter.
 That's all.
 
