@@ -1,4 +1,4 @@
 {
-	"token": "<tgbot token>",
+	"token": "<telebot token>",
 	"chatId": "<chat id>"
 }
