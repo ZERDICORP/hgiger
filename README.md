@@ -1,7 +1,7 @@
 # hgiger
 A program for creating notes on various topics.
 
-Command to run: _python main.py_
+Command to run: _python main.pyw_
 
 ![alt text](https://sun9-56.userapi.com/impf/8pFWHXQcEUCQaROIa0mIUkMyRVhbJkiHkrdo1A/qbSPlzrGBRE.jpg?size=1280x719&quality=96&sign=32960b2964fe497a164bcb6c764a549b&type=album)
 
