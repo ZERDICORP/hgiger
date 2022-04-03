@@ -1,0 +1,8 @@
+QScrollBar:horizontal {
+	background: transparent;
+	height: 0;
+}
+
+QListWidget {
+	border: none;
+}

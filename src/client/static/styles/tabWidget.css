@@ -1,0 +1,22 @@
+QTabWidget {
+	font-size: 14px;
+}
+
+QTabWidget::pane {
+	border: 0px;
+	background: #fff;
+} 
+
+QTabBar::tab {
+	background: #EAEAEA; 
+	border: none;
+	border: 1px solid #EAEAEA;
+	color: #858585;
+	padding: 5px;
+}
+
+QTabBar::tab:selected { 
+	background: #fff;
+	border: 1px solid #ABADB3;
+	color: #242424;
+}

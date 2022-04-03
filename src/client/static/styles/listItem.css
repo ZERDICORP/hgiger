@@ -1,0 +1,20 @@
+QLabel#tags {
+	border: none;
+	background: transparent;
+	padding-top: 2px;
+	color: #0051FF;
+	font-weight: 600;
+}
+
+QLabel#name {
+	border: none;
+	background: transparent;
+	color: #242424;
+	padding-left: 0px;
+	padding-bottom: 5px;
+	width: inherit;
+}
+
+QLabel#name:hover {
+	color: #0079EA;
+}

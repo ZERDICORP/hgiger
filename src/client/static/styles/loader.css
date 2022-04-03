@@ -1,0 +1,8 @@
+QFrame#child {
+	background: none;
+	border: none;
+}
+
+QFrame#parent {
+	background: rgba(0, 0, 0, 0.85);
+}

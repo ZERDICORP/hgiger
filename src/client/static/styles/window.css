@@ -1,0 +1,27 @@
+QMainWindow {
+	background: #fff;
+}
+
+QScrollBar:vertical {
+	background: #fff;
+	width: 10px;
+	padding: 4px;
+}
+
+QScrollBar::handle:vertical {
+	background: #242424;
+}
+
+QScrollBar::sub-line:vertical, 
+QScrollBar::add-line:vertical, 
+QScrollBar::add-page:vertical, 
+QScrollBar::sub-page:vertical {
+	background: #fff;
+}
+
+QScrollBar:up-arrow:vertical, 
+QScrollBar::down-arrow:vertical {
+	width: 0px;
+	height: 0px;
+	border: none;
+}

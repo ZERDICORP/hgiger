@@ -1,0 +1,15 @@
+QPushButton#menuButton {
+	border: 1px solid #000;
+	background: #fff;
+	border-radius: 15px;
+	padding: 4px;
+}
+
+QPushButton#menuButton:hover {
+	background: #000;
+}
+
+QPushButton#menuButton:disabled {
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px solid #D5D5D5;
+}
